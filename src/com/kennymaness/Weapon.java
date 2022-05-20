@@ -1,24 +1,23 @@
 package com.kennymaness;
 
+enum WeaponType {
+    DAGGER("dagger"),
+    LONGSWORD("longsword"),
+    RAPIER("rapier"),
+    MACE("mace"),
+    BATTLEAXE("battleaxe"),
+    HAMMER("hammer"),
+    MORNINGSTAR("morningstar"),
+    QUARTERSTAFF("quarterstaff"),
+    BOW("bow");
+
+    public final String weaponType;
+    WeaponType(String type) {this.weaponType = type;}
+
+    public String getWeaponType() {return weaponType;}
+}
 
 public class Weapon {
-
-    enum WeaponType {
-        DAGGER("dagger"),
-        LONGSWORD("longsword"),
-        RAPIER("rapier"),
-        MACE("mace"),
-        BATTLEAXE("battleaxe"),
-        HAMMER("hammer"),
-        MORNINGSTAR("morningstar"),
-        QUARTERSTAFF("quarterstaff"),
-        BOW("bow");
-
-        public final String weaponType;
-        WeaponType(String type) {this.weaponType = type;}
-
-        public String getWeaponType() {return weaponType;}
-    }
     
     String weaponName;
     WeaponType weaponType;

@@ -3,24 +3,22 @@ package com.kennymaness;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.kennymaness.Game.slowPrint;
-
 public class Player extends Character {
     public Player(int currentHitPoints,
-                  CharacterRace characterRace,
-                  CharacterClass characterClass,
-                  String characterName,
                   ArrayList<Weapon> weaponPouch,
-                  Boolean isArmed,
-                  int[] abilityScores) {
+                  ArrayList<Item> itemPouch,
+                  int[] abilityScores,
+                  CharacterClass characterClass,
+                  CharacterRace characterRace,
+                  Boolean isArmed) {
         super(
                 currentHitPoints,
-                characterRace,
-                characterClass,
-                characterName,
                 weaponPouch,
-                isArmed,
-                abilityScores
+                itemPouch,
+                abilityScores,
+                characterClass,
+                characterRace,
+                isArmed
         );
     }
 
@@ -41,7 +39,7 @@ public class Player extends Character {
         // but if the player is already armed,
         } else {
             // ask the player if they want to replace their currently equipped weapon with the new weapon
-            slowPrint(
+            Utilities.slowPrint(
                     "Unequip your " + getWeaponPouch().get(0).weaponName +
                     " and equip the " + weapon.weaponName + "?");
             Boolean playerAnswer = Confirm.yesOrNo();
@@ -62,7 +60,7 @@ public class Player extends Character {
             // and if they do not want to replace their currently held weapon with the new weapon,
             } else {
                 // don't.
-                slowPrint("You decide to keep on hanging on to your trusty " + this.getWeaponPouch().get(0).getWeaponType() + " " +
+                Utilities.slowPrint("You decide to keep on hanging on to your trusty " + this.getWeaponPouch().get(0).getWeaponType() + " " +
                         this.getWeaponPouch().get(0).weaponName + ". It's probably better this way anyway.");
                 weapon = this.getWeaponPouch().get(0);
             }
@@ -70,7 +68,7 @@ public class Player extends Character {
         // confirm for the player that they are now holding the weapon that they are holding,
         // whether it be the one they've just equipped,
         // or if they've decided to continue holding onto their previously equipped weapon.
-        slowPrint("You're now wielding your " + this.getWeaponPouch().get(0).getWeaponType() + ", " + this.getWeaponPouch().get(0).weaponName + ". ");
+        Utilities.slowPrint("You're now wielding your " + this.getWeaponPouch().get(0).getWeaponType() + ", " + this.getWeaponPouch().get(0).weaponName + ". ");
     }
 
     public void unequipWeapon(Weapon weapon) {weapon.setEquipped(false);}
@@ -83,64 +81,65 @@ public class Player extends Character {
         Scanner input = new Scanner(System.in);
 
         // assign starting hitpoints
-        slowPrint("You do a quick pat check and notice that " +
+        Utilities.slowPrint("You do a quick pat check and notice that " +
                 "your current hit points are at a nice comfortable " +
                 maxHitPoints + ".");
 
         // player selects race
         playerPrompt = "What is your race?\n\nDragonborn\nDwarf\nElf\nGnome\nHalf-Elf\nHalfling\nHalf-Orc\nHuman\nTiefling";
-        slowPrint(playerPrompt);
+        Utilities.slowPrint(playerPrompt);
         playerInput =  input.nextLine();
         CharacterRace newPlayerRace = CharacterRace.valueOf(Confirm.confirmRace(playerPrompt, playerInput).toUpperCase());
 
         // player selects class
         playerPrompt = "What is your class?\n\nBarbarian\nBard\nCleric\nDruid\nFighter\nMonk\nPaladin\nRanger\nRogue\nSorcerer\nWarlock\nWizard";
-        slowPrint(playerPrompt);
+        Utilities.slowPrint(playerPrompt);
         playerInput = input.nextLine();
         CharacterClass newPlayerClass = CharacterClass.valueOf(Confirm.confirmClass(playerPrompt, playerInput).toUpperCase());
 
         // assign default player attributes
-        String newPlayerName = "";
-        ArrayList<Weapon> newPlayerWeaponPouch = new ArrayList<Weapon>();
-        Boolean isNewPlayerArmed = false;
+        ArrayList<Weapon> newPlayerWeaponPouch = new ArrayList<>();
+        ArrayList<Item> newPlayerItemPouch = new ArrayList<>();
         int[] newPlayerAbilityScores = new int[]{10, 10, 10, 10, 10, 10};
 
-        Player newPlayer = new Player(maxHitPoints,
-                newPlayerRace,
-                newPlayerClass,
-                newPlayerName,
+        Player newPlayer = new Player(
+                maxHitPoints,
                 newPlayerWeaponPouch,
-                isNewPlayerArmed,
-                newPlayerAbilityScores);
+                newPlayerItemPouch,
+                newPlayerAbilityScores,
+                newPlayerClass,
+                newPlayerRace,
+                false
+        );
 
         // create starting weapon based on player's chosen class
-        Weapon.WeaponType weaponType;
+        WeaponType weaponType;
         if (newPlayer.getCharacterClass().equals("Barbarian")) {
-            weaponType = Weapon.WeaponType.valueOf("BATTLEAXE");
+            weaponType = WeaponType.valueOf("BATTLEAXE");
         } else if (newPlayer.getCharacterClass().equals("Bard")) {
-            weaponType = Weapon.WeaponType.valueOf("RAPIER");
+            weaponType = WeaponType.valueOf("RAPIER");
         } else if (newPlayer.getCharacterClass().equals("Cleric")) {
-            weaponType = Weapon.WeaponType.valueOf("MACE");
+            weaponType = WeaponType.valueOf("MACE");
         } else if (newPlayer.getCharacterClass().equals("Druid")) {
-            weaponType = Weapon.WeaponType.valueOf("QUARTERSTAFF");
+            weaponType = WeaponType.valueOf("QUARTERSTAFF");
         } else if (newPlayer.getCharacterClass().equals("Fighter")) {
-            weaponType = Weapon.WeaponType.valueOf("LONGSWORD");
+            weaponType = WeaponType.valueOf("LONGSWORD");
         } else if (newPlayer.getCharacterClass().equals("Monk")) {
-            weaponType = Weapon.WeaponType.valueOf("QUARTERSTAFF");
+            weaponType = WeaponType.valueOf("QUARTERSTAFF");
         } else if (newPlayer.getCharacterClass().equals("Paladin")) {
-            weaponType = Weapon.WeaponType.valueOf("MORNINGSTAR");
+            weaponType = WeaponType.valueOf("MORNINGSTAR");
         } else if (newPlayer.getCharacterClass().equals("Ranger")) {
-            weaponType = Weapon.WeaponType.valueOf("BOW");
+            weaponType = WeaponType.valueOf("BOW");
         } else if (newPlayer.getCharacterClass().equals("Rogue")) {
-            weaponType = Weapon.WeaponType.valueOf("DAGGER");
+            weaponType = WeaponType.valueOf("DAGGER");
         } else if (newPlayer.getCharacterClass().equals("Sorcerer")) {
-            weaponType = Weapon.WeaponType.valueOf("QUARTERSTAFF");
+            weaponType = WeaponType.valueOf("QUARTERSTAFF");
         } else if (newPlayer.getCharacterClass().equals("Warlock")) {
-            weaponType = Weapon.WeaponType.valueOf("QUARTERSTAFF");
+            weaponType = WeaponType.valueOf("QUARTERSTAFF");
         } else if (newPlayer.getCharacterClass().equals("Wizard")) {
-            weaponType = Weapon.WeaponType.valueOf("QUARTERSTAFF");
+            weaponType = WeaponType.valueOf("QUARTERSTAFF");
         } else {
-            weaponType = Weapon.WeaponType.valueOf("DAGGER");
+            weaponType = WeaponType.valueOf("DAGGER");
         }
         Weapon startingWeapon = new Weapon(
                 "Old Reliable",
