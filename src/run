@@ -1,0 +1,3 @@
+#! /bin/bash
+javac com/kennymaness/Main.java
+java com.kennymaness.Main
