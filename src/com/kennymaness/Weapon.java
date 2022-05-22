@@ -1,6 +1,6 @@
 package com.kennymaness;
 
-enum WeaponType {
+public enum WeaponType {
     DAGGER("dagger", "melee", 2),
     LONGSWORD("longsword", "melee", 2),
     RAPIER("rapier", "melee", 2),

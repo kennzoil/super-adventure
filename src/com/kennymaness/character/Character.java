@@ -1,96 +1,10 @@
-package com.kennymaness;
+package com.kennymaness.character;
+
+import com.kennymaness.Item;
+import com.kennymaness.Utilities;
+import com.kennymaness.Weapon;
 
 import java.util.ArrayList;
-
-
-enum CharacterRace {
-    DRAGONBORN("Dragonborn"),
-    DWARF("Dwarf"),
-    ELF("Elf"),
-    GNOME("Gnome"),
-    HALFELF("Half-Elf"),
-    HALFLING("Halfling"),
-    HALFORC("Half-Orc"),
-    HUMAN("Human"),
-    TIEFLING("Tiefling");
-
-    public final String characterRace;
-
-    CharacterRace(String race) {
-        this.characterRace = race;
-    }
-
-    public String getCharacterRace() {return characterRace;}
-
-    // returns the ones WITH hyphens
-    public static ArrayList<String> allRaces() {
-        ArrayList<String> races = new ArrayList<String >();
-        for (CharacterRace r : CharacterRace.values()) {
-            races.add(r.characterRace.toLowerCase());
-        }
-        return races;
-    }
-
-    // returns the ones WITHOUT hyphens
-    public static ArrayList<String> allRaceValues() {
-        ArrayList<String> races = new ArrayList<String >();
-        for (CharacterRace r : CharacterRace.values()) {
-            races.add(r.toString().toLowerCase());
-        }
-        return races;
-    }
-
-    // TODO - try and format this regex
-//    public static String raceRegex() {
-//        StringBuilder raceRegexBuilder = new StringBuilder();
-//        raceRegexBuilder.append("/");
-//        for (CharacterRace r : CharacterRace.values()) {
-//            raceRegexBuilder.append("(").append(r.characterRace).append(")|");
-//        }
-//        raceRegexBuilder.append("ENDREGEX/g");
-//        return raceRegexBuilder.toString();
-//    }
-
-}
-
-
-enum CharacterClass {
-    BARBARIAN("Barbarian"),
-    BARD("Bard"),
-    CLERIC("Cleric"),
-    DRUID("Druid"),
-    FIGHTER("Fighter"),
-    MONK("Monk"),
-    PALADIN("Paladin"),
-    RANGER("Ranger"),
-    ROGUE("Rogue"),
-    SORCERER("Sorcerer"),
-    WARLOCK("Warlock"),
-    WIZARD("Wizard");
-
-    public final String characterClass;
-    CharacterClass(String characterClass) {this.characterClass = characterClass;}
-
-    public String getCharacterClass() {return this.characterClass;}
-
-    // returns the ones in blue, made into lowercase
-    public static ArrayList<String> allClasses() {
-        ArrayList<String> classes = new ArrayList<String>();
-        for (CharacterClass c : CharacterClass.values()) {
-            classes.add(c.toString().toLowerCase());
-        }
-        return classes;
-    }
-
-    // returns the ones in green, made into lowercase
-    public static ArrayList<String> allClassValues() {
-        ArrayList<String> classes = new ArrayList<String >();
-        for (CharacterClass c : CharacterClass.values()) {
-            classes.add(c.toString().toLowerCase());
-        }
-        return classes;
-    }
-}
 
 
 public class Character {
@@ -105,7 +19,7 @@ public class Character {
     private int[] abilityScores;
     CharacterClass characterClass;
     CharacterRace characterRace;
-    Boolean isArmed;
+    public Boolean isArmed;
 
     // constructor
     public Character(int currentHitPoints,

@@ -1,5 +1,7 @@
 package com.kennymaness;
 
+import com.kennymaness.character.Player;
+
 import java.util.Objects;
 import java.util.Scanner;
 

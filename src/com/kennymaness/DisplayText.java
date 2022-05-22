@@ -1,5 +1,7 @@
 package com.kennymaness;
 
+import com.kennymaness.character.Player;
+
 public class DisplayText {
     public static final String linebreak =
         """

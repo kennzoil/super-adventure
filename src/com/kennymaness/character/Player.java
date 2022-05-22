@@ -1,4 +1,6 @@
-package com.kennymaness;
+package com.kennymaness.character;
+
+import com.kennymaness.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -40,8 +42,8 @@ public class Player extends Character {
         } else {
             // ask the player if they want to replace their currently equipped weapon with the new weapon
             Boolean playerAnswer = Confirm.getYesOrNo(
-                    "Unequip your " + getWeaponPouch().get(0).weaponName +
-                    " and equip the " + weapon.weaponName + "?"
+                    "Unequip your " + getWeaponPouch().get(0).getWeaponName() +
+                    " and equip the " + weapon.getWeaponName() + "?"
             );
 
             // if they answer yes,
@@ -62,7 +64,7 @@ public class Player extends Character {
                 // don't.
                 Utilities.slowPrint("You decide to keep on hanging on to your trusty " +
                         this.getWeaponPouch().get(0).getWeaponType() + " " +
-                        this.getWeaponPouch().get(0).weaponName + ".\n" +
+                        this.getWeaponPouch().get(0).getWeaponName() + ".\n" +
                         "It's probably better this way anyway.");
                 weapon = this.getWeaponPouch().get(0);
             }
@@ -73,8 +75,11 @@ public class Player extends Character {
         Utilities.slowPrint(
                 "You're now wielding your " +
                         this.getWeaponPouch().get(0).getWeaponType() + ", " +
-                        this.getWeaponPouch().get(0).weaponName + ". ");
+                        this.getWeaponPouch().get(0).getWeaponName() + ". ");
     }
+
+
+    /* ------------------------------ CHARACTER CREATION METHOD ------------------------------ */
 
     public static Player createPlayer() throws InterruptedException {
 
@@ -171,7 +176,7 @@ public class Player extends Character {
         } else {
             Utilities.slowPrint("You look at the old " +
                     startingWeapon.getWeaponType() + " for a little longer.\n" +
-                    "\"Hmmm... Pretty sure '" + startingWeapon.weaponName +
+                    "\"Hmmm... Pretty sure '" + startingWeapon.getWeaponName() +
                     "' was this thing's nickname,\" you think to yourself.\n" +
                     "You shrug. No sense worrying about it anyway.\n" +
                     "You've got bigger fish to fry. Adventure fish, to be precise!\nOnward you go!\n" +
@@ -183,7 +188,7 @@ public class Player extends Character {
         newPlayer.addWeapon(startingWeapon);
 
         // if the starting weapon has a nickname, print this
-        if (!startingWeapon.weaponName.equals(DisplayText.startingWeaponDefaultName)) {
+        if (!startingWeapon.getWeaponName().equals(DisplayText.startingWeaponDefaultName)) {
             Utilities.slowPrint("Oh shoot, you're still holding your " +
                     startingWeapon.getWeaponType() +
                     " (which for some reason is named " + startingWeapon.getWeaponName() + ")! " +
@@ -199,7 +204,7 @@ public class Player extends Character {
         Boolean playerAnswer = Confirm.getYesOrNo("Unequip your " + newPlayer.getWeaponPouch().get(0) + "?");
         if (playerAnswer) {
             startingWeapon.setEquipped(false);
-            Utilities.slowPrint("You quickly stow " + newPlayer.getWeaponPouch().get(0).weaponName +
+            Utilities.slowPrint("You quickly stow " + newPlayer.getWeaponPouch().get(0).getWeaponName() +
                     " back into your pouch before the guard notices. Phew!\n" +
                     "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
         } else {
