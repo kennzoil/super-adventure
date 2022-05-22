@@ -7,7 +7,7 @@ public class Utilities {
         char[] chars = string.toCharArray();
         for (char aChar : chars) {
             System.out.print(aChar);
-            Thread.sleep(2);
+            Thread.sleep(10);
         }
         System.out.print("\n");
     }

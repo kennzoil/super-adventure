@@ -8,116 +8,44 @@ public class Game {
     // declare variables
     static Scanner playerInput = new Scanner(System.in);
     static String playerPrompt;
+    static Boolean playerAnswer;
 
     // this is the game!!
     public static void gameStart() throws InterruptedException {
+
+        // Welcome Screen
         Utilities.fastPrint(DisplayText.gameHeader);
 
-
-        /* STEP 1 - CREATE PLAYER CHARACTER */
-
-        // make the player
+        /* -------------------------- CREATE PLAYER CHARACTER -------------------------- */
         Player player = Player.createPlayer();
-            Utilities.slowPrint("You check your weapon pouch and find the old " +
-            player.getWeaponPouch().get(0).getWeaponType() +
-            " your father bestowed upon you before you left on your Super Adventure.\n" +
-            "You can't quite remember... Did he have a nickname for it...?");
-        Boolean playerAnswer = Confirm.yesOrNo();
 
 
+        /* -------------------------- GAMEPLAY START -------------------------- */
 
-        /* STEP 2 - SET THE WEAPON NAME */
-
-        // if the player does have a nickname for the weapon,
-        if (playerAnswer) {
-            // the player names the starting weapon
-            playerPrompt = "Yeah, you're pretty sure he did.\nIt's on the tip of your tongue... What was it again?";
-            Utilities.slowPrint(playerPrompt);
-            String input =  playerInput.nextLine();
-            player.getWeaponPouch().get(0).setWeaponName(Confirm.confirm(playerPrompt, input));
-            Utilities.slowPrint("Right, of course! Its name is " + player.getWeaponPouch().get(0).getWeaponName() + "!");
-
-        // otherwise, the default name is used
-        } else {
-            Utilities.slowPrint("You look at the old " +
-                    player.getWeaponPouch().get(0).getWeaponType() + " for a little longer.\n" +
-                    "\"Hmmm... Pretty sure '" + player.getWeaponPouch().get(0).weaponName +
-                    "' was this thing's nickname,\" you think to yourself.\nYou shrug. " +
-                    "No sense worrying about it anyway.\n" +
-                    "You've got bigger fish to fry. Adventure fish, to be precise! Onward you go!");
-        }
-
-        Utilities.slowPrint(DisplayText.linebreak + "You've made your way to the town gate, and you see a guard.");
-
-
-
-        // ----- STEP 3a - alert user they're still brandishing the weapon
-
-        if (!player.getWeaponPouch().get(0).weaponName.equals("Old Reliable")) {
-            Utilities.slowPrint("Oh shoot, you're still holding your " +
-                    player.getWeaponPouch().get(0).getWeaponType() +
-                    " (which for some reason is named " +
-                    player.getWeaponPouch().get(0).getWeaponName() + ")! The guard's probably not gonna like that!");
-        } else {
-            Utilities.slowPrint("Oh crap, wait! You're still brandishing that " +
-                    player.getWeaponPouch().get(0).getWeaponType() + "! The guard's probably not gonna like that!");
-        }
-
-
-
-        // ----- STEP 3b - ask if the user would like to stow it
-
-        Utilities.slowPrint("Stow it?");
-        playerAnswer = Confirm.yesOrNo();
-        if (playerAnswer) {
-            player.getWeaponPouch().get(0).setEquipped(false);
-            Utilities.slowPrint("You quickly stow " + player.getWeaponPouch().get(0).weaponName +
-                    " back into your pouch before the guard notices. Phew!\n" +
-                    "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
-        } else {
-            player.equipWeapon(player.getWeaponPouch().get(0));
-        }
-
-
-
-        /* STEP 4 - SET PLAYER NAME */
-
-        // the guard greets the player and asks for their name
-        playerPrompt = "\"Well hello there, youngster! What's your name?\"";
-        Utilities.slowPrint(playerPrompt);
-        player.setCharacterName(Confirm.confirm(playerPrompt, playerInput.nextLine()));
-        // player.assignPlayerName(playerPrompt);
-        Utilities.slowPrint("\"Ah, a fine name indeed. Well met, " + player.getCharacterName() + "!\"");
-
-
-
-        /* -------------------- GAMEPLAY STARTS -------------------- */
-
-
-
-
-        /* STEP 5 - PATH DIVERGES BASED ON RACE */
+        /* -------------------------- PATH DIVERGES BASED ON RACE -------------------------- */
 
         if (!Objects.equals(player.getCharacterRace(), "Elf") &&
                 !Objects.equals(player.getCharacterRace(), "Half-Elf")) {
             // The town guard asks you a mysterious question
-            Utilities.slowPrint("\"Tell me, " + player.getCharacterName() +
-                    "... Have you heard of the high elves?\"");
+            Utilities.slowPrint(
+                    "\"Tell me, " + player.getCharacterName() + "... Have you heard of the high elves?\"");
 
             // you answer
             playerAnswer = Confirm.yesOrNo();
             // depending on your answer, he will either heal you or try to bonk you
             if (playerAnswer) {
-                Utilities.slowPrint("\"Oh excellent! Me too!\"");
-                Utilities.slowPrint("The guard seems so excited that he heals you with a magic spell. Wow!");
+                Utilities.slowPrint("\"Oh excellent! Me too!\"\n" +
+                        "The guard seems so excited that he heals you with a magic spell. Wow!");
                 player.heal(2);
-                Utilities.slowPrint("Looks like this adventure is already shaping up to be pretty super!");
+                Utilities.slowPrint(
+                        "Looks like this adventure is already shaping up to be pretty super!");
             } else {
-                Utilities.slowPrint("\"What? Seriously?? That makes me mad!! I'm gonna hit you on the head!!!!\"");
+                Utilities.slowPrint(
+                        "\"What? Seriously?? That makes me mad!! I'm gonna hit you on the head!!!!\"");
                 if (!player.isArmed) {
                     Utilities.slowPrint("He raises his halberd to bonk you on the head.\n" +
-                            "You try to parry, but you have nothing to parry it with!\n" +
-                            "Remember how you stowed your " + player.getWeaponPouch().get(0).getWeaponType() + "?? You fool!!");
+                            "You try to parry, but you have nothing to parry it with!\nRemember how you stowed your " +
+                            player.getWeaponPouch().get(0).getWeaponType() + "?? You fool!!");
                     Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                     player.damage(2);
                     Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
@@ -147,8 +75,7 @@ public class Game {
         }
 
 
-
-
+        /* -------------------------- END OF GAME SCREEN -------------------------- */
 
         String playerStats = "\n\n" +
                 "Name: " + player.getCharacterName() + "\n" +

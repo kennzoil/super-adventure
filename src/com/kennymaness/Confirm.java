@@ -9,7 +9,7 @@ public class Confirm {
     private static final String[] noResponses = {"n", "no", "naw", "nah", "narp"};
 
     public static Boolean getYesOrNo(String prompt) throws InterruptedException {
-        Utilities.slowPrint(DisplayText.confirmRequest);
+        Utilities.slowPrint(prompt + DisplayText.confirmRequest);
         Scanner query = new Scanner(System.in);
         String playerInput = null;
         boolean response;
@@ -27,6 +27,8 @@ public class Confirm {
     }
 
     public static String confirm(String prompt, String answer) throws InterruptedException {
+
+        Utilities.slowPrint(prompt);
 
         Scanner query = new Scanner(System.in);
         boolean yn = true;

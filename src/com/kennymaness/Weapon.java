@@ -1,21 +1,34 @@
 package com.kennymaness;
 
 enum WeaponType {
-    DAGGER("dagger"),
-    LONGSWORD("longsword"),
-    RAPIER("rapier"),
-    MACE("mace"),
-    BATTLEAXE("battleaxe"),
-    HAMMER("hammer"),
-    MORNINGSTAR("morningstar"),
-    QUARTERSTAFF("quarterstaff"),
-    BOW("bow");
+    DAGGER("dagger", "melee", 2),
+    LONGSWORD("longsword", "melee", 2),
+    RAPIER("rapier", "melee", 2),
+    MACE("mace", "melee", 2),
+    BATTLEAXE("battleaxe", "melee", 2),
+    HAMMER("hammer", "melee", 2),
+    MORNINGSTAR("morningstar", "melee", 2),
+    QUARTERSTAFF("quarterstaff", "melee", 2),
+    BOW("bow", "melee", 2);
 
-    public final String weaponType;
-    WeaponType(String type) {this.weaponType = type;}
+    private final String weaponType;
+    private final String weaponRange;
+    private final int weaponDamageOutput;
+
+    WeaponType(String weaponType,
+               String weaponRange,
+               int weaponDamageOutput) {
+        this.weaponType = weaponType;
+        this.weaponRange = weaponRange;
+        this.weaponDamageOutput = weaponDamageOutput;
+    }
 
     public String getWeaponType() {return weaponType;}
+    public String getWeaponRange() {return weaponRange;}
+    public int getWeaponDamageOutput() {return weaponDamageOutput;}
 }
+
+// TODO - Configure WeaponType.weaponDamageOutput to WeaponType from int
 
 public class Weapon {
     

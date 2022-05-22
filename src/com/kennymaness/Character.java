@@ -40,15 +40,16 @@ enum CharacterRace {
         return races;
     }
 
-    public static String raceRegex() {
-        StringBuilder raceRegexBuilder = new StringBuilder();
-        raceRegexBuilder.append("/");
-        for (CharacterRace r : CharacterRace.values()) {
-            raceRegexBuilder.append("(").append(r.characterRace).append(")|");
-        }
-        raceRegexBuilder.append("ENDREGEX/g");
-        return raceRegexBuilder.toString();
-    }
+    // TODO - try and format this regex
+//    public static String raceRegex() {
+//        StringBuilder raceRegexBuilder = new StringBuilder();
+//        raceRegexBuilder.append("/");
+//        for (CharacterRace r : CharacterRace.values()) {
+//            raceRegexBuilder.append("(").append(r.characterRace).append(")|");
+//        }
+//        raceRegexBuilder.append("ENDREGEX/g");
+//        return raceRegexBuilder.toString();
+//    }
 
 }
 
@@ -68,11 +69,9 @@ enum CharacterClass {
     WIZARD("Wizard");
 
     public final String characterClass;
-    CharacterClass(String characterClass) {
-        this.characterClass = characterClass;
-    }
+    CharacterClass(String characterClass) {this.characterClass = characterClass;}
 
-    public String getCharacterClass() {return characterClass;}
+    public String getCharacterClass() {return this.characterClass;}
 
     // returns the ones in blue, made into lowercase
     public static ArrayList<String> allClasses() {
@@ -96,7 +95,7 @@ enum CharacterClass {
 
 public class Character {
 
-    static final int maxHitPoints = 20;
+    static final int MAX_HIT_POINTS = 20;
 
     // declare the attributes!
     private String characterName = "";
@@ -132,7 +131,7 @@ public class Character {
 
     // Use resetHitPoints when resetting a character, and damage & heal when a character's hitpoints change
     public void resetHitPoints(int currentHitPoints) {
-        this.currentHitPoints = maxHitPoints;
+        this.currentHitPoints = MAX_HIT_POINTS;
     }
     public void damage(int damageTaken) throws InterruptedException {
         this.currentHitPoints = this.getCurrentHitPoints() - damageTaken;
@@ -169,9 +168,7 @@ public class Character {
         this.characterName = characterName;
     }
 
-    public ArrayList<Weapon> getWeaponPouch() {
-        return weaponPouch;
-    }
+    public ArrayList<Weapon> getWeaponPouch() {return weaponPouch;}
 
     // assign an entire weapon pouch, equip a single weapon, and unequip a single weapon
     public void setWeaponPouch(ArrayList<Weapon> weaponPouch) {this.weaponPouch = weaponPouch;}
