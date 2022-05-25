@@ -1,5 +1,6 @@
 package com.kennymaness.map;
 
+import com.kennymaness.DisplayText;
 import com.kennymaness.Item;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Map {
     private ArrayList<Character> townGateCharacters;
     private Location townGate = new Location(
             "Town Gate",
-            "The gate leading into town. There is a guard with a halberd posted just outside.",
+            DisplayText.townGateDescription,
             this.townGateItems,
             this.townGateCharacters,
             null,
@@ -35,7 +36,7 @@ public class Map {
     private ArrayList<Character> stablesCharacters;
     private Location stables = new Location(
             "The Stables",
-            "The stables just outside the city wall. There are horses.",
+            DisplayText.stablesDescription,
             stablesItems,
             stablesCharacters,
             this.townGate,
@@ -50,7 +51,7 @@ public class Map {
     private ArrayList<Character> mainStreetCharacters;
     private Location mainStreet = new Location(
             "Main Street ",
-            "The bit of Main Street just inside the town wall. To the west is the pub, and the inn is to your east.",
+            DisplayText.mainStreetDescription,
             this.mainStreetItems,
             this.mainStreetCharacters,
             null,
@@ -65,7 +66,7 @@ public class Map {
     private ArrayList<Character> gatehouseCharacters;
     private Location gatehouse = new Location(
             "Gatehouse",
-            "The gatehouse just outside the city gates, where the guards eat their snacks.",
+            DisplayText.gatehouseDescription,
             this.gatehouseItems,
             this.gatehouseCharacters,
             null,

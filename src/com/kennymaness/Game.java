@@ -3,37 +3,34 @@ package com.kennymaness;
 import com.kennymaness.character.Player;
 
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Game {
 
     // declare variables
-    static Scanner playerInput = new Scanner(System.in);
-    static String playerPrompt;
     static Boolean playerAnswer;
 
     // this is the game!!
     public static void gameStart() throws InterruptedException {
 
-        // Welcome Screen
-        Utilities.fastPrint(DisplayText.gameHeader);
+        /* -------------------------- WELCOME SCREEN / CREATE PLAYER CHARACTER ------------------------- */
 
-        /* -------------------------- CREATE PLAYER CHARACTER -------------------------- */
+        Utilities.fastPrint(DisplayText.gameHeader);
         Player player = Player.createPlayer();
 
 
-        /* -------------------------- GAMEPLAY START -------------------------- */
+        /* --------------------------------------------------------------------------------------------- */
+        /* --------------------------------------- GAMEPLAY START -------------------------------------- */
+        /* --------------------------------------------------------------------------------------------- */
 
-        /* -------------------------- PATH DIVERGES BASED ON RACE -------------------------- */
 
+        /* -------------------------------- PATH DIVERGES BASED ON RACE -------------------------------- */
+
+        // if the player is neither an elf nor a half-elf
         if (!Objects.equals(player.getCharacterRace(), "Elf") &&
                 !Objects.equals(player.getCharacterRace(), "Half-Elf")) {
-            // The town guard asks you a mysterious question
-            Utilities.slowPrint(
+            // The town guard asks you a mysterious question, and you answer
+            playerAnswer = Confirm.getYesOrNo(
                     "\"Tell me, " + player.getCharacterName() + "... Have you heard of the high elves?\"");
-
-            // you answer
-            playerAnswer = Confirm.yesOrNo();
             // depending on your answer, he will either heal you or try to bonk you
             if (playerAnswer) {
                 Utilities.slowPrint("\"Oh excellent! Me too!\"\n" +
@@ -52,10 +49,10 @@ public class Game {
                     player.damage(2);
                     Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
                 } else {
-                    Utilities.slowPrint("He raises his halberd to bonk you on the head. " +
-                            "But you've still got your " + player.getWeaponPouch().get(0).getWeaponType() + " equipped!\n" +
-                            "Parry him?");
-                    playerAnswer = Confirm.yesOrNo();
+                    Utilities.slowPrint(
+                            "He raises his halberd to bonk you on the head. " + "But you've still got your " +
+                            player.getWeaponPouch().get(0).getWeaponType() + " equipped!\n");
+                    playerAnswer = Confirm.getYesOrNo("Parry him?");
                     if (playerAnswer) {
                         Utilities.slowPrint("Shing!!!! Hyah!!\n" +
                                 "Brandishing your trusty " + player.getWeaponPouch().get(0).getWeaponType() +
@@ -66,32 +63,35 @@ public class Game {
                         Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                         player.damage(2);
                         Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
+                        Utilities.slowPrint("You have a bump on your head, and decide to go back home.\n" +
+                                            "That's enough adventure for one day.");
                     }
                 }
             }
         } else {
-            Utilities.slowPrint("The guard looks at your ears. It catches you off guard.\n" +
-                    "\"Say... I was going to ask you if you've heard of the High Elves, " +
-                    "but from the looks of those ears of yours, I'd say I've got my answer!");
-            Utilities.slowPrint("You shrug and move on. Adventure!!");
+            Utilities.slowPrint(DisplayText.ifPlayerIsAnElfOrHalfElf);
         }
 
+        /* -------------------------- END OF PATH THAT DIVERGES BASED ON RACE -------------------------- */
 
-        /* -------------------------- END OF GAME SCREEN -------------------------- */
 
+        /* ------------------------------------ END OF GAME SCREEN ------------------------------------- */
         String playerStats = "\n\n" +
                 "Name: " + player.getCharacterName() + "\n" +
                 "Race: " + player.getCharacterRace() + "\n" +
                 "Class: " + player.getCharacterClass() + "\n" +
                 "HP: " + player.getCurrentHitPoints() + "\n" +
-                "Equipped: a " + player.getWeaponPouch().get(0).getWeaponType() + " named " + player.getEquippedWeapon() + "\n";
+                "Equipped: a " + player.getWeaponPouch().get(0).getWeaponType() +
+                    " named " + player.getEquippedWeapon() + "\n";
         Utilities.slowPrint(playerStats);
-        Utilities.slowPrint("New game?");
-        playerAnswer = Confirm.yesOrNo();
-        if (!playerAnswer) {
-            Utilities.fastPrint(DisplayText.gameFooter);
+        /* --------------------------------------------------------------------------------------------- */
+
+        Boolean playerRestart = Confirm.getYesOrNo("New game?");
+        if (!playerRestart) {
+            Utilities.fastPrint(DisplayText.gameFooter); // game end
         } else {
-            gameStart();
+            // TODO - delete the player before the game restarts
+            gameStart(); // game restart
         }
     }
 

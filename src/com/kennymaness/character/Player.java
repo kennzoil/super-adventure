@@ -1,6 +1,8 @@
 package com.kennymaness.character;
 
 import com.kennymaness.*;
+import com.kennymaness.weapon.Weapon;
+import com.kennymaness.weapon.WeaponType;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,6 +33,8 @@ public class Player extends Character {
         this.getWeaponPouch().remove(weapon);
     }
 
+    /* --------------------------------------------------------------------------------------------- */
+    /* ------------------------------------ EQUIP WEAPON METHOD ------------------------------------ */
     public void equipWeapon(Weapon weapon) throws InterruptedException {
 
         // if the player isn't unarmed, equip the weapon and arm the player
@@ -78,26 +82,27 @@ public class Player extends Character {
                         this.getWeaponPouch().get(0).getWeaponName() + ". ");
     }
 
-
-    /* ------------------------------ CHARACTER CREATION METHOD ------------------------------ */
-
+    /* --------------------------------------------------------------------------------------------- */
+    /* --------------------------------- CHARACTER CREATION METHOD --------------------------------- */
     public static Player createPlayer() throws InterruptedException {
 
-        String playerPrompt;
         String playerInput;
         Scanner input = new Scanner(System.in);
+        WeaponType startingWeaponType = null;
 
         // assign starting hitpoints
         Utilities.slowPrint(DisplayText.startingHitPointsPrompt);
 
         // player selects race
         Utilities.slowPrint(DisplayText.racePrompt);
+        Utilities.inputCaret();
         playerInput = input.nextLine();
         CharacterRace newPlayerRace = CharacterRace.valueOf(
                 Confirm.confirmRace(DisplayText.racePrompt, playerInput).toUpperCase());
 
         // player selects class
         Utilities.slowPrint(DisplayText.classPrompt);
+        Utilities.inputCaret();
         playerInput = input.nextLine();
         CharacterClass newPlayerClass = CharacterClass.valueOf(
                 Confirm.confirmClass(DisplayText.classPrompt, playerInput).toUpperCase());
@@ -107,6 +112,10 @@ public class Player extends Character {
         ArrayList<Item> newPlayerItemPouch = new ArrayList<>();
         int[] newPlayerAbilityScores = new int[]{10, 10, 10, 10, 10, 10};
 
+        // create the starting weapon with the weaponType corresponding to newPlayerClass
+        Weapon startingWeapon = Utilities.createStartingWeapon(newPlayerClass);
+
+        // create player object
         Player newPlayer = new Player(
                 MAX_HIT_POINTS,
                 newPlayerWeaponPouch,
@@ -117,102 +126,39 @@ public class Player extends Character {
                 false
         );
 
-        // create starting weapon based on player's chosen class
-        WeaponType weaponType;
-        if (newPlayer.getCharacterClass().equals("Barbarian")) {
-            weaponType = WeaponType.BATTLEAXE;
-        } else if (newPlayer.getCharacterClass().equals("Bard")) {
-            weaponType = WeaponType.RAPIER;
-        } else if (newPlayer.getCharacterClass().equals("Cleric")) {
-            weaponType = WeaponType.MACE;
-        } else if (newPlayer.getCharacterClass().equals("Druid")) {
-            weaponType = WeaponType.QUARTERSTAFF;
-        } else if (newPlayer.getCharacterClass().equals("Fighter")) {
-            weaponType = WeaponType.LONGSWORD;
-        } else if (newPlayer.getCharacterClass().equals("Monk")) {
-            weaponType = WeaponType.QUARTERSTAFF;
-        } else if (newPlayer.getCharacterClass().equals("Paladin")) {
-            weaponType = WeaponType.MORNINGSTAR;
-        } else if (newPlayer.getCharacterClass().equals("Ranger")) {
-            weaponType = WeaponType.BOW;
-        } else if (newPlayer.getCharacterClass().equals("Rogue")) {
-            weaponType = WeaponType.DAGGER;
-        } else if (newPlayer.getCharacterClass().equals("Sorcerer")) {
-            weaponType = WeaponType.QUARTERSTAFF;
-        } else if (newPlayer.getCharacterClass().equals("Warlock")) {
-            weaponType = WeaponType.QUARTERSTAFF;
-        } else if (newPlayer.getCharacterClass().equals("Wizard")) {
-            weaponType = WeaponType.QUARTERSTAFF;
-        } else {
-            weaponType = WeaponType.DAGGER;
-        }
-        Weapon startingWeapon = new Weapon(
-                DisplayText.startingWeaponDefaultName,
-                2,
-                2,
-                weaponType,
-                false,
-                false
-        );
-
-        Utilities.slowPrint(
-                "You check your weapon pouch and find the old " +
-                        startingWeapon.getWeaponType() +
-                        " your father bestowed upon you before you left on your Super Adventure.");
-        Boolean newPlayerAnswer = Confirm.getYesOrNo(
-                "You can't quite remember... Did he have a nickname for it...?");
-
-        // if the player does have a nickname for the weapon,
-        if (newPlayerAnswer) {
-            // the player names the starting weapon
-            Utilities.slowPrint(DisplayText.startingWeaponNicknamePrompt);
-            playerInput = input.nextLine();
-            startingWeapon.setWeaponName(Confirm.confirm(
-                    DisplayText.startingWeaponNicknamePrompt, playerInput));
-            Utilities.slowPrint("Right, of course! Its name is " +
-                    startingWeapon.getWeaponName() + "!");
-
-        // otherwise, the default name is used
-        } else {
-            Utilities.slowPrint("You look at the old " +
-                    startingWeapon.getWeaponType() + " for a little longer.\n" +
-                    "\"Hmmm... Pretty sure '" + startingWeapon.getWeaponName() +
-                    "' was this thing's nickname,\" you think to yourself.\n" +
-                    "You shrug. No sense worrying about it anyway.\n" +
-                    "You've got bigger fish to fry. Adventure fish, to be precise!\nOnward you go!\n" +
-                    DisplayText.linebreak +
-                    "You've made your way to the town gate, and you see a guard.");
-        }
-
-        // add the weapon to the player's weapon pouch
+        // add the starting weapon to the player's weapon pouch
         newPlayer.addWeapon(startingWeapon);
+
+        Utilities.slowPrint(DisplayText.linebreak);
+        Utilities.slowPrint("You've made your way to the town gate, and you see a guard.");
 
         // if the starting weapon has a nickname, print this
         if (!startingWeapon.getWeaponName().equals(DisplayText.startingWeaponDefaultName)) {
             Utilities.slowPrint("Oh shoot, you're still holding your " +
-                    startingWeapon.getWeaponType() +
-                    " (which for some reason is named " + startingWeapon.getWeaponName() + ")! " +
-                    "The guard's probably not gonna like that!");
-        // otherwise, print this
+                                startingWeapon.getWeaponType() +
+                                " (which for some reason is named " + startingWeapon.getWeaponName() + ")! " +
+                                "The guard's probably not gonna like that!");
+            // otherwise, print this
         } else {
             Utilities.slowPrint("Oh crap, wait! You're still brandishing that old " +
-                    startingWeapon.getWeaponType() + "! The guard's probably not gonna like that!");
+                                startingWeapon.getWeaponType() + "! The guard's probably not gonna like that!");
         }
 
         // ----- STEP 3b - ask if the user would like to unequip it
 
-        Boolean playerAnswer = Confirm.getYesOrNo("Unequip your " + newPlayer.getWeaponPouch().get(0) + "?");
+        Boolean playerAnswer = Confirm.getYesOrNo(
+                "Unequip your " + newPlayer.getWeaponPouch().get(0).getWeaponType() + "?");
         if (playerAnswer) {
             startingWeapon.setEquipped(false);
             Utilities.slowPrint("You quickly stow " + newPlayer.getWeaponPouch().get(0).getWeaponName() +
-                    " back into your pouch before the guard notices. Phew!\n" +
-                    "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
+                                " back into your pouch before the guard notices. Phew!\n" +
+                                "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
         } else {
             newPlayer.equipWeapon(startingWeapon);
         }
 
         // the guard greets the player and asks for their name
-        newPlayer.setCharacterName(Confirm.confirm(DisplayText.namePrompt, input.nextLine()));
+        newPlayer.setCharacterName(Confirm.getAnswer(DisplayText.namePrompt));
 
         // player.assignPlayerName(playerPrompt);
         Utilities.slowPrint("\"Ah, a fine name indeed. Well met, " + newPlayer.getCharacterName() + "!\"");

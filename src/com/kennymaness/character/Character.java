@@ -2,14 +2,14 @@ package com.kennymaness.character;
 
 import com.kennymaness.Item;
 import com.kennymaness.Utilities;
-import com.kennymaness.Weapon;
+import com.kennymaness.weapon.Weapon;
 
 import java.util.ArrayList;
 
 
 public class Character {
 
-    static final int MAX_HIT_POINTS = 20;
+    public static final int MAX_HIT_POINTS = 20;
 
     // declare the attributes!
     private String characterName = "";

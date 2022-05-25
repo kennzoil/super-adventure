@@ -1,5 +1,8 @@
 package com.kennymaness;
 
+import com.kennymaness.character.CharacterClass;
+import com.kennymaness.character.CharacterRace;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,13 +11,16 @@ public class Confirm {
     private static final String[] yesResponses = {"y", "ye", "yes", "ya", "yea", "yeah", "yup", "yep", "yarp"};
     private static final String[] noResponses = {"n", "no", "naw", "nah", "narp"};
 
+
     public static Boolean getYesOrNo(String prompt) throws InterruptedException {
-        Utilities.slowPrint(prompt + DisplayText.confirmRequest);
         Scanner query = new Scanner(System.in);
         String playerInput = null;
         boolean response;
         boolean responseInvalid = true;
+
         while (responseInvalid) {
+            Utilities.slowPrint(prompt);
+            Utilities.yesNoCaret();
             playerInput = query.nextLine().toLowerCase();
             responseInvalid = !Arrays.asList(yesResponses).contains(playerInput) &&
                     !Arrays.asList(noResponses).contains(playerInput);
@@ -22,82 +28,27 @@ public class Confirm {
                 Utilities.slowPrint(DisplayText.alertOfInvalidAnswer);
             }
         }
+
         response = Arrays.asList(yesResponses).contains(playerInput);
         return response;
     }
 
-    public static String confirm(String prompt, String answer) throws InterruptedException {
-
-        Utilities.slowPrint(prompt);
+    public static String getAnswer(String prompt) throws InterruptedException {
 
         Scanner query = new Scanner(System.in);
-        boolean yn = true;
-        boolean firstRun = true;
-        String response = null;
+        String playerInput = null;
+        boolean response;
+        boolean responseIsValid = true;
 
-        while (yn) {
-
-            if (firstRun) {
-                Utilities.slowPrint("'" + answer + "': confirm [y/n]");
-                response = query.nextLine().toLowerCase();
-            }
-            switch (response) {
-                case "y": {
-                    return answer;
-                }
-                case "n": {
-                    Utilities.slowPrint(prompt);
-                    answer = query.nextLine();
-                    firstRun = true;
-                }
-                break;
-                default: {
-                    boolean repeat = true;
-                    while (repeat) {
-                        Utilities.slowPrint("confirm [y/n]");
-                        response = query.nextLine().toLowerCase();
-                        switch (response) {
-                            case "y": {return answer;}
-                            case "n": {firstRun = false; repeat = false;}
-                            default : {}
-                        }
-                    }
-                }
-            }
+        while (responseIsValid) {
+            Utilities.slowPrint(prompt);
+            Utilities.inputCaret();
+            playerInput = query.nextLine();
+            response = Confirm.getYesOrNo(playerInput);
+            if (!response) { //loop again
+            } else { responseIsValid = false; } //break the loop
         }
-        return answer;
-    }
-
-    public static Boolean yesOrNo() throws InterruptedException {
-
-        // make the scanner, print the prompt
-        Scanner query = new Scanner(System.in);
-        Boolean yes = null;
-        Utilities.slowPrint("[y/n]");
-
-        // store user input in 'answer' String
-        String answer = query.nextLine().toLowerCase();
-
-        // ensure answer is either 'yes' or 'no'
-        switch (answer) {
-            case "y": {yes = true;} break;
-            case "n": {yes = false;} break;
-            default: {
-                boolean repeat = true;
-                while (repeat) {
-                    Utilities.slowPrint(
-                            "[y] = yes/n" +
-                            "[n] = no");
-                    answer = query.nextLine().toLowerCase();
-                        switch (answer) {
-                            case "y": {yes = true; repeat = false;} break;
-                            case "n": {yes = false; repeat = false;} break;
-                            default: {}
-                    }
-                }
-            }
-        }
-        return yes;
+        return playerInput;
     }
 
     public static String confirmRace(String prompt, String proposedRace) throws InterruptedException {
@@ -127,13 +78,16 @@ public class Confirm {
 //                }
                 */
                 if (!CharacterRace.allRaces().contains(proposedRace.toLowerCase())) {
-                    do {Utilities.slowPrint("Invalid race. Please select again.");
+                    do {
+                        Utilities.slowPrint("Invalid race. Please select again.\n" + DisplayText.racePrompt);
+                        Utilities.inputCaret();
                         proposedRace = query.nextLine();
                     } while (!CharacterRace.allRaces().contains(proposedRace.toLowerCase()));
                 }
 
 
-                Utilities.slowPrint("'" + proposedRace + "': confirm [y/n]");
+                Utilities.slowPrint("You wish to be of the " + proposedRace + " race?");
+                Utilities.yesNoCaret();
                 response = query.nextLine().toLowerCase();
             }
             switch (response) {
@@ -148,7 +102,7 @@ public class Confirm {
                 default: {
                     boolean repeat = true;
                     while (repeat) {
-                        Utilities.slowPrint("confirm [y/n]");
+                        Utilities.yesNoCaret();
                         response = query.nextLine().toLowerCase();
                         switch (response) {
                             case "y": {return proposedRace.replace("-", "");}
@@ -175,12 +129,13 @@ public class Confirm {
 
                 if (!CharacterClass.allClasses().contains(proposedClass.toLowerCase())) {
                     do {
-                        Utilities.slowPrint("Invalid class. Please select again.");
-                        prompt = query.nextLine();
+                        Utilities.slowPrint("Invalid class. Please select again." + DisplayText.classPrompt);
+                        proposedClass = query.nextLine();
                     } while (!CharacterClass.allClasses().contains(proposedClass.toLowerCase()));
                 }
 
-                Utilities.slowPrint("'" + proposedClass + "': confirm [y/n]");
+                Utilities.slowPrint("You wish to be a " + proposedClass + "?");
+                Utilities.yesNoCaret();
                 response = query.nextLine().toLowerCase();
             }
             switch (response) {
@@ -189,13 +144,13 @@ public class Confirm {
                 }
                 case "n": {
                     Utilities.slowPrint(prompt);
-                    prompt = query.nextLine();
+                    proposedClass = query.nextLine();
                     firstRun = true;
                 } break;
                 default: {
                     boolean repeat = true;
                     while (repeat) {
-                        Utilities.slowPrint("confirm [y/n]");
+                        Utilities.yesNoCaret();
                         response = query.nextLine().toLowerCase();
                         switch (response) {
                             case "y": {return proposedClass;}
