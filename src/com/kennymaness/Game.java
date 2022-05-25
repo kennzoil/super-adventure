@@ -48,6 +48,8 @@ public class Game {
                     Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                     player.damage(2);
                     Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
+                    Utilities.slowPrint("You have a bump on your head, and decide to go back home.\n" +
+                                        "That's enough adventure for one day.");
                 } else {
                     Utilities.slowPrint(
                             "He raises his halberd to bonk you on the head. " + "But you've still got your " +

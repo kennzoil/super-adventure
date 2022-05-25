@@ -52,7 +52,7 @@ public class Utilities {
     public static Weapon createStartingWeapon(CharacterClass newPlayerClass) throws InterruptedException {
 
         WeaponType startingWeaponType = null;
-        String startingWeaponName = null;
+        String startingWeaponName;
         switch (newPlayerClass) {
             case BARBARIAN -> startingWeaponType = WeaponType.BATTLEAXE;
             case BARD -> startingWeaponType = WeaponType.RAPIER;
@@ -71,6 +71,7 @@ public class Utilities {
         Boolean newPlayerAnswer = Confirm.getYesOrNo(
                 "You can't quite remember... Did he have a nickname for it...?");
         if (newPlayerAnswer) {
+            Utilities.slowPrint("Yeah, you're pretty sure he did.");
             startingWeaponName = (Confirm.getAnswer(
                     DisplayText.startingWeaponNicknamePrompt));
             Utilities.slowPrint("Right, of course! Its name is " +
@@ -82,6 +83,7 @@ public class Utilities {
                                 "' was this thing's nickname,\" you think to yourself.\n" +
                                 "You shrug. \"No sense worrying about it anyway.\"" +
                                 "You've got bigger fish to fry. Adventure fish, to be precise!\nOnward you go!");
+            startingWeaponName = DisplayText.startingWeaponDefaultName;
         }
 
         return new Weapon(

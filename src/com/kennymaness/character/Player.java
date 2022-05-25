@@ -86,26 +86,14 @@ public class Player extends Character {
     /* --------------------------------- CHARACTER CREATION METHOD --------------------------------- */
     public static Player createPlayer() throws InterruptedException {
 
-        String playerInput;
-        Scanner input = new Scanner(System.in);
-        WeaponType startingWeaponType = null;
-
         // assign starting hitpoints
         Utilities.slowPrint(DisplayText.startingHitPointsPrompt);
 
         // player selects race
-        Utilities.slowPrint(DisplayText.racePrompt);
-        Utilities.inputCaret();
-        playerInput = input.nextLine();
-        CharacterRace newPlayerRace = CharacterRace.valueOf(
-                Confirm.confirmRace(DisplayText.racePrompt, playerInput).toUpperCase());
+        CharacterRace newPlayerRace = CharacterRace.valueOf(Confirm.confirmRace().toUpperCase());
 
         // player selects class
-        Utilities.slowPrint(DisplayText.classPrompt);
-        Utilities.inputCaret();
-        playerInput = input.nextLine();
-        CharacterClass newPlayerClass = CharacterClass.valueOf(
-                Confirm.confirmClass(DisplayText.classPrompt, playerInput).toUpperCase());
+        CharacterClass newPlayerClass = CharacterClass.valueOf(Confirm.confirmClass().toUpperCase());
 
         // assign default player attributes
         ArrayList<Weapon> newPlayerWeaponPouch = new ArrayList<>();
@@ -150,9 +138,10 @@ public class Player extends Character {
                 "Unequip your " + newPlayer.getWeaponPouch().get(0).getWeaponType() + "?");
         if (playerAnswer) {
             startingWeapon.setEquipped(false);
-            Utilities.slowPrint("You quickly stow " + newPlayer.getWeaponPouch().get(0).getWeaponName() +
-                                " back into your pouch before the guard notices. Phew!\n" +
-                                "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
+            Utilities.slowPrint(
+                    "You quickly stow " + newPlayer.getWeaponPouch().get(0).getWeaponName() +
+                    " back into your pouch before the guard notices. Phew!\n" +
+                    "He turns to see you approaching the town gate and hails you, unaware of what just happened.");
         } else {
             newPlayer.equipWeapon(startingWeapon);
         }

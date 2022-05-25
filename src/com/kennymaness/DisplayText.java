@@ -45,8 +45,7 @@ public class DisplayText {
                     """;
     public static final String namePrompt = "\"Well hello there, youngster! What's your name?\"";
     public static final String startingWeaponDefaultName = "Old Reliable";
-    public static final String startingWeaponNicknamePrompt = "Yeah, you're pretty sure he did." +
-            "\nIt's on the tip of your tongue... What was it again?";
+    public static final String startingWeaponNicknamePrompt = "It's on the tip of your tongue... What was it again?";
     public static final String ifPlayerIsAnElfOrHalfElf =
                     """
                     The guard looks at your ears. It catches you off guard.

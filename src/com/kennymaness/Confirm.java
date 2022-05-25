@@ -2,8 +2,10 @@ package com.kennymaness;
 
 import com.kennymaness.character.CharacterClass;
 import com.kennymaness.character.CharacterRace;
+import jdk.jshell.execution.Util;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Confirm {
@@ -51,32 +53,20 @@ public class Confirm {
         return playerInput;
     }
 
-    public static String confirmRace(String prompt, String proposedRace) throws InterruptedException {
-
+    public static String confirmRace() throws InterruptedException {
         Scanner query = new Scanner(System.in);
         boolean yn = true;
         boolean firstRun = true;
         String response = null;
+        String proposedRace = null;
 
         while (yn) {
 
-            if (firstRun) {
+            Utilities.slowPrint(DisplayText.racePrompt);
+            Utilities.inputCaret();
+            proposedRace = query.nextLine();
 
-                /*
-//                if (!Character.CharacterRace.allRaces().contains(proposedRace.toLowerCase())) {
-//                    do {slowPrint("Invalid race. Please select again.");
-//               TODO - print "Be sure to type the hyphen" if proposedRace
-//                          does not have a hyphen but is otherwise entered correctly
-//                        if (!proposedRace.contains("-") &&
-//                                proposedRace.toLowerCase().contains("half") &&
-//                                Character.CharacterRace.allRaceValues().contains(proposedRace)) {
-//                            slowPrint("Be sure to type the hyphen.");
-//                        }
-//
-//                        proposedRace = query.nextLine();
-//                    } while (!Character.CharacterRace.allRaceValues().contains(proposedRace.toLowerCase()));
-//                }
-                */
+            if (firstRun) {
                 if (!CharacterRace.allRaces().contains(proposedRace.toLowerCase())) {
                     do {
                         Utilities.slowPrint("Invalid race. Please select again.\n" + DisplayText.racePrompt);
@@ -86,7 +76,7 @@ public class Confirm {
                 }
 
 
-                Utilities.slowPrint("You wish to be of the " + proposedRace + " race?");
+                Utilities.slowPrint("You wish to be of the " + proposedRace.toLowerCase() + " race?");
                 Utilities.yesNoCaret();
                 response = query.nextLine().toLowerCase();
             }
@@ -95,13 +85,12 @@ public class Confirm {
                     return proposedRace.replace("-", "");
                 }
                 case "n": {
-                    Utilities.slowPrint(prompt);
-                    proposedRace = query.nextLine();
                     firstRun = true;
                 } break;
                 default: {
                     boolean repeat = true;
                     while (repeat) {
+                        Utilities.slowPrint("You wish to be of the " + proposedRace.toLowerCase() + " race?");
                         Utilities.yesNoCaret();
                         response = query.nextLine().toLowerCase();
                         switch (response) {
@@ -116,14 +105,19 @@ public class Confirm {
         return proposedRace.replace("-", "");
     }
 
-    public static String confirmClass(String prompt, String proposedClass) throws InterruptedException {
+    public static String confirmClass() throws InterruptedException {
 
         Scanner query = new Scanner(System.in);
         boolean yn = true;
         boolean firstRun = true;
         String response = null;
+        String proposedClass = null;
 
         while (yn) {
+
+            Utilities.slowPrint(DisplayText.classPrompt);
+            Utilities.inputCaret();
+            proposedClass = query.nextLine();
 
             if (firstRun) {
 
@@ -134,7 +128,7 @@ public class Confirm {
                     } while (!CharacterClass.allClasses().contains(proposedClass.toLowerCase()));
                 }
 
-                Utilities.slowPrint("You wish to be a " + proposedClass + "?");
+                Utilities.slowPrint("You wish to be a " + proposedClass.toLowerCase() + "?");
                 Utilities.yesNoCaret();
                 response = query.nextLine().toLowerCase();
             }
@@ -143,13 +137,12 @@ public class Confirm {
                     return proposedClass;
                 }
                 case "n": {
-                    Utilities.slowPrint(prompt);
-                    proposedClass = query.nextLine();
                     firstRun = true;
                 } break;
                 default: {
                     boolean repeat = true;
                     while (repeat) {
+                        Utilities.slowPrint("You wish to be a " + proposedClass.toLowerCase() + "?");
                         Utilities.yesNoCaret();
                         response = query.nextLine().toLowerCase();
                         switch (response) {
