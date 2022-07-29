@@ -2,6 +2,7 @@ package com.kennymaness.character;
 
 import com.kennymaness.Item;
 import com.kennymaness.Utilities;
+import com.kennymaness.map.Location;
 import com.kennymaness.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Character {
     CharacterClass characterClass;
     CharacterRace characterRace;
     public Boolean isArmed;
+    public Location currentLocation;
 
     // constructor
     public Character(int currentHitPoints,
@@ -28,7 +30,8 @@ public class Character {
                      int[] abilityScores,
                      CharacterClass characterClass,
                      CharacterRace characterRace,
-                     Boolean isArmed) {
+                     Boolean isArmed,
+                     Location currentLocation) {
 
         this.currentHitPoints = currentHitPoints;
         this.weaponPouch = weaponPouch;
@@ -37,6 +40,7 @@ public class Character {
         this.characterClass = characterClass;
         this.characterRace = characterRace;
         this.isArmed = isArmed;
+        this.currentLocation = currentLocation;
     }
 
     public int getCurrentHitPoints() {
@@ -98,4 +102,13 @@ public class Character {
     public void setAbilityScores(int[] abilityScores) {
         this.abilityScores = abilityScores;
     }
+
+    public Location getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Location currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
 }

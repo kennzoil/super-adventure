@@ -6,8 +6,8 @@ public class DisplayText {
     public static final String linebreak =
         """
                                  \s
-        --------------------------
-                                 \s
+        -------------------------
+                                 
         """;
     public static final String alertOfInvalidAnswer = "Invalid answer.";
     public static final String startingHitPointsPrompt = "You do a quick pat check and notice that " +
@@ -58,16 +58,34 @@ public class DisplayText {
     /* --------------------------------------------------------------------------------------------- */
 
     public static final String townGateDescription =
-            "The gate leading into town. There is a guard with a halberd posted just outside.\n";
+            "The gate leading into town. There is a guard with a halberd posted just outside.";
 
     public static final String stablesDescription =
             "The stables just outside the city wall. There are horses.\n";
 
-    public static final String gatehouseDescription =
-            "The gatehouse just outside the city gates, where the guards eat their snacks.\n";
-
     public static final String mainStreetDescription =
-            "The bit of Main Street just inside the town wall. To the west is the pub, and the inn is to your east.\n";
+            "The bit of Main Street just inside the town wall. To the west is the pub, and the inn is to your east.";
+
+    public static final String gatehouseDescription =
+            "The gatehouse just outside the city gates, where the guards eat their snacks.";
+
+    public static final String pubDescription =
+            "The Pub. There are people drinking here, and it smells.";
+
+    public static final String sewerDescription =
+            "The sewer. Smells almost as bad as the pub.";
+
+    public static final String innDescription =
+            "The local Inn. Very welcoming.";
+
+    public static final String marketDescription =
+            "The market square. People are bustling and whatnot.";
+
+    public static final String potionShopDescription =
+            "The potion shop. Owned and run by the local Potion Seller, who sells only the strongest potions.";
+
+    public static final String weaponStoreDescription =
+            "The weapon store. Buy a weapon, why don'tcha!";
 
     /* -------------------------------- END OF LOCATION DESCRIPTIONS ------------------------------- */
     /* --------------------------------------------------------------------------------------------- */

@@ -1,8 +1,10 @@
 package com.kennymaness;
 
 import com.kennymaness.character.Player;
+import com.kennymaness.map.Direction;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Game {
 
@@ -73,6 +75,14 @@ public class Game {
         } else {
             Utilities.slowPrint(DisplayText.ifPlayerIsAnElfOrHalfElf);
         }
+
+        // TODO - Fix the movePlayer() method
+//        Utilities.slowPrint("Go in a direction.");
+//        Utilities.inputCaret();
+//        Scanner input = new Scanner(System.in);
+//        String playerDirection = input.nextLine();
+//        player.movePlayer(Direction.valueOf(playerDirection.toUpperCase()));
+
 
         /* -------------------------- END OF PATH THAT DIVERGES BASED ON RACE -------------------------- */
 

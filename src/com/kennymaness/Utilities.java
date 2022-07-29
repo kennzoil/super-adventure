@@ -8,6 +8,23 @@ import java.util.Random;
 
 public class Utilities {
 
+    private static final String[] goCommands = {
+            "go",
+            "walk",
+            "move",
+            "run",
+            "progress",
+            "travel",
+            "approach",
+            "journey",
+            "mosey",
+            "abscond",
+            "escape",
+            "pass",
+            "flee",
+            "retire"
+    };
+
     /* ------------------------------ SLOW PRINT & FAST PRINT METHODS ------------------------------ */
     /* ----methods for displaying text sequentially, to be used in place of System.out.println()---- */
     /* --------------------------------------------------------------------------------------------- */

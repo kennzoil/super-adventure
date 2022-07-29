@@ -1,11 +1,11 @@
 package com.kennymaness.character;
 
 import com.kennymaness.*;
+import com.kennymaness.map.Direction;
+import com.kennymaness.map.Location;
 import com.kennymaness.weapon.Weapon;
-import com.kennymaness.weapon.WeaponType;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player extends Character {
     public Player(int currentHitPoints,
@@ -14,7 +14,8 @@ public class Player extends Character {
                   int[] abilityScores,
                   CharacterClass characterClass,
                   CharacterRace characterRace,
-                  Boolean isArmed) {
+                  Boolean isArmed,
+                  Location currentLocation) {
         super(
                 currentHitPoints,
                 weaponPouch,
@@ -22,15 +23,43 @@ public class Player extends Character {
                 abilityScores,
                 characterClass,
                 characterRace,
-                isArmed
+                isArmed,
+                currentLocation
         );
     }
+
+
 
     public void addWeapon(Weapon weapon) {
         this.getWeaponPouch().add(weapon);
     }
     public void removeWeapon(Weapon weapon) {
         this.getWeaponPouch().remove(weapon);
+    }
+
+    /* --------------------------------------------------------------------------------------------- */
+    /* ------------------------------------- MOVE PLAYER METHOD ------------------------------------ */
+
+    public void movePlayer(Direction direction) throws InterruptedException {
+
+        Location destination = null;
+        switch (direction) {
+            case NORTH -> this.setCurrentLocation(this.getCurrentLocation().getLocationToNorth());
+            case SOUTH -> this.setCurrentLocation(this.getCurrentLocation().getLocationToSouth());
+            case EAST -> this.setCurrentLocation(this.getCurrentLocation().getLocationToEast());
+            case WEST -> this.setCurrentLocation(this.getCurrentLocation().getLocationToWest());
+            case UP -> this.setCurrentLocation(this.getCurrentLocation().getLocationToUp());
+            case DOWN -> this.setCurrentLocation(this.getCurrentLocation().getLocationToDown());
+        }
+        destination = this.getCurrentLocation();
+        if (destination == null) {
+            Utilities.slowPrint("There is no location in that direction.");
+        } else {
+            Utilities.slowPrint("You move " + direction.getDirectionName() +
+                    " to " + destination.getName() + ".");
+            this.currentLocation = destination;
+        }
+
     }
 
     /* --------------------------------------------------------------------------------------------- */
@@ -111,7 +140,8 @@ public class Player extends Character {
                 newPlayerAbilityScores,
                 newPlayerClass,
                 newPlayerRace,
-                false
+                false,
+                Location.townGate
         );
 
         // add the starting weapon to the player's weapon pouch
