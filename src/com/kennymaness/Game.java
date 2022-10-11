@@ -10,6 +10,7 @@ public class Game {
 
     // declare variables
     static Boolean playerAnswer;
+    static Boolean gameContinue = true;
 
     // this is the game!!
     public static void gameStart() throws InterruptedException {
@@ -67,8 +68,8 @@ public class Game {
                         Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                         player.damage(2);
                         Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
-                        Utilities.slowPrint("You have a bump on your head, and decide to go back home.\n" +
-                                            "That's enough adventure for one day.");
+//                        Utilities.slowPrint("You have a bump on your head, and decide to go back home.\n" +
+//                                            "That's enough adventure for one day.");
                     }
                 }
             }
@@ -76,26 +77,13 @@ public class Game {
             Utilities.slowPrint(DisplayText.ifPlayerIsAnElfOrHalfElf);
         }
 
-        // TODO - Fix the movePlayer() method
-//        Utilities.slowPrint("Go in a direction.");
-//        Utilities.inputCaret();
-//        Scanner input = new Scanner(System.in);
-//        String playerDirection = input.nextLine();
-//        player.movePlayer(Direction.valueOf(playerDirection.toUpperCase()));
-
-
         /* -------------------------- END OF PATH THAT DIVERGES BASED ON RACE -------------------------- */
+        /* -------------------------------- BEGINNING OF GAMEPLAY PROPER ------------------------------- */
+        while (gameContinue) {
+            Utilities.validateUserCommandInput(player, Confirm.getAnswer(DisplayText.generalPrompt), gameContinue);
+        }
 
-
-        /* ------------------------------------ END OF GAME SCREEN ------------------------------------- */
-        String playerStats = "\n\n" +
-                "Name: " + player.getCharacterName() + "\n" +
-                "Race: " + player.getCharacterRace() + "\n" +
-                "Class: " + player.getCharacterClass() + "\n" +
-                "HP: " + player.getCurrentHitPoints() + "\n" +
-                "Equipped: a " + player.getWeaponPouch().get(0).getWeaponType() +
-                    " named " + player.getEquippedWeapon() + "\n";
-        Utilities.slowPrint(playerStats);
+        /* ------------------------------------ END-OF-GAME SCREEN ------------------------------------- */
         /* --------------------------------------------------------------------------------------------- */
 
         Boolean playerRestart = Confirm.getYesOrNo("New game?");

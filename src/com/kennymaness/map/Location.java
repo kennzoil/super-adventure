@@ -44,7 +44,7 @@ public class Location {
     private static ArrayList<Item> townGateItems;
     private static ArrayList<Character> townGateCharacters;
     public static Location townGate = new Location(
-            "Town Gate",
+            "The Town Gate",
             DisplayText.townGateDescription,
             townGateItems,
             townGateCharacters,
@@ -89,7 +89,7 @@ public class Location {
     private static ArrayList<Item> gatehouseItems;
     private static ArrayList<Character> gatehouseCharacters;
     public static Location gatehouse = new Location(
-            "Gatehouse",
+            "The Gatehouse",
             DisplayText.gatehouseDescription,
             gatehouseItems,
             gatehouseCharacters,
@@ -164,7 +164,7 @@ public class Location {
     private static ArrayList<Item> potionShopItems;
     private static ArrayList<Character> potionShopCharacters;
     public static Location potionShop = new Location(
-            "Potion Shop",
+            "The Potion Shop",
             DisplayText.potionShopDescription,
             potionShopItems,
             potionShopCharacters,
@@ -179,7 +179,7 @@ public class Location {
     private static ArrayList<Item> weaponStoreItems;
     private static ArrayList<Character> weaponStoreCharacters;
     public static Location weaponStore = new Location(
-            "Weapon Store",
+            "The Weapon Store",
             DisplayText.weaponStoreDescription,
             weaponStoreItems,
             weaponStoreCharacters,

@@ -28,8 +28,6 @@ public class Player extends Character {
         );
     }
 
-
-
     public void addWeapon(Weapon weapon) {
         this.getWeaponPouch().add(weapon);
     }
@@ -39,6 +37,7 @@ public class Player extends Character {
 
     /* --------------------------------------------------------------------------------------------- */
     /* ------------------------------------- MOVE PLAYER METHOD ------------------------------------ */
+    /* --------------------------------------------------------------------------------------------- */
 
     public void movePlayer(Direction direction) throws InterruptedException {
 
@@ -64,6 +63,8 @@ public class Player extends Character {
 
     /* --------------------------------------------------------------------------------------------- */
     /* ------------------------------------ EQUIP WEAPON METHOD ------------------------------------ */
+    /* --------------------------------------------------------------------------------------------- */
+
     public void equipWeapon(Weapon weapon) throws InterruptedException {
 
         // if the player isn't unarmed, equip the weapon and arm the player
@@ -113,6 +114,8 @@ public class Player extends Character {
 
     /* --------------------------------------------------------------------------------------------- */
     /* --------------------------------- CHARACTER CREATION METHOD --------------------------------- */
+    /* --------------------------------------------------------------------------------------------- */
+
     public static Player createPlayer() throws InterruptedException {
 
         // assign starting hitpoints

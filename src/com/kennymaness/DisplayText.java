@@ -9,6 +9,7 @@ public class DisplayText {
         -------------------------
                                  
         """;
+    public static final String generalPrompt = "What would you like to do?";
     public static final String alertOfInvalidAnswer = "Invalid answer.";
     public static final String startingHitPointsPrompt = "You do a quick pat check and notice that " +
             "your current hit points are at a nice comfortable " + Player.MAX_HIT_POINTS + ".";
@@ -53,6 +54,14 @@ public class DisplayText {
                     You think about it for a second, then shrug and move on.
                     Adventure!!
                     """;
+    public static final String wait = "You figure you can take your time with it, so you decide to wait a bit.\n" +
+            "You start to get a little bored with waiting after a little while. You're itching for adventure!";
+    public static final String help = "Here are the things you can do!\n" +
+            "look\n" +
+            "inv\n" +
+            "stats\n" +
+            "help\n" +
+            "quit";
 
     /* ----------------------------------- LOCATION DESCRIPTIONS ----------------------------------- */
     /* --------------------------------------------------------------------------------------------- */
@@ -61,7 +70,7 @@ public class DisplayText {
             "The gate leading into town. There is a guard with a halberd posted just outside.";
 
     public static final String stablesDescription =
-            "The stables just outside the city wall. There are horses.\n";
+            "The stables just outside the city wall. There are horses.";
 
     public static final String mainStreetDescription =
             "The bit of Main Street just inside the town wall. To the west is the pub, and the inn is to your east.";
@@ -107,7 +116,7 @@ public class DisplayText {
            ██║  ██║ ██████╔╝   ╚██╔╝   ███████╗ ██║ ╚███║    ██║    ╚██████╔╝ ██║  ██║ ███████╗ ██╗\s
            ╚═╝  ╚═╝ ╚═════╝     ╚═╝    ╚══════╝ ╚═╝  ╚══╝    ╚═╝     ╚═════╝  ╚═╝  ╚═╝ ╚══════╝ ╚═╝\s
                                                                                                    \s
-                                         by Kenny Maness                                           \s
+                                    (c) 2022 Kenny Maness                                          \s
                                                                                                    \s
                                                                                                    \s
                                    Welcome to Super Adventure!                                     \s

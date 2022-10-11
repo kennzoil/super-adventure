@@ -2,16 +2,44 @@ package com.kennymaness;
 
 import com.kennymaness.character.CharacterClass;
 import com.kennymaness.character.CharacterRace;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Confirm {
 
-    private static final String[] yesResponses = {"y", "ye", "yes", "ya", "yea", "yeah", "yup", "yep", "yarp"};
-    private static final String[] noResponses = {"n", "no", "naw", "nah", "narp"};
+    // The following two sets of Strings function as a working library of valid responses for 'yes' or 'no'.
+    // It is by no means comprehensive; every so often I'll think of a new one and throw it on.
+    // Sure, that may not be the cleanest or most efficient way to do this, but hey, it works for now.
+    private static final String[] yesResponses = {
+            "y",
+            "ye",
+            "yes",
+            "ya",
+            "yea",
+            "yeah",
+            "yup",
+            "yep",
+            "yarp",
+            "yeahp",
+            "yearp",
+            "ja"
+    };
+    private static final String[] noResponses = {
+            "n",
+            "no",
+            "naw",
+            "nah",
+            "narp",
+            "na",
+            "nein",
+            "nej"
+    };
 
+    /* ---------------------------------------------------------------------------------- */
+    /* ------------------- METHODS FOR OBTAINING AND USING USER INPUT ------------------- */
+    /* ---------------------------------------------------------------------------------- */
 
+    // The 'getYesOrNo' method turns a user's valid 'yes' or 'no' input into a Boolean that can be sent to other methods.
     public static Boolean getYesOrNo(String prompt) throws InterruptedException {
         Scanner query = new Scanner(System.in);
         String playerInput = null;
@@ -33,6 +61,7 @@ public class Confirm {
         return response;
     }
 
+    // The 'getAnswer' method uses 'getYesOrNo' to allow the user to confirm a non-yes-or-no input.
     public static String getAnswer(String prompt) throws InterruptedException {
 
         Scanner query = new Scanner(System.in);
@@ -50,6 +79,17 @@ public class Confirm {
         }
         return playerInput;
     }
+
+    /* ---------------------------------------------------------------------------------- */
+    /* ------------------------- METHODS FOR CHARACTER CREATION ------------------------- */
+    /* ---------------------------------------------------------------------------------- */
+
+    /*
+    * These two methods are used during gameplay.
+    * Their purpose is to ensure that the race and class that the user inputs are valid.
+    * The user confirms their selections, and the methods return Strings which are then
+    * used to create the user's 'Player' object.
+    * */
 
     public static String confirmRace() throws InterruptedException {
         Scanner query = new Scanner(System.in);
@@ -72,7 +112,6 @@ public class Confirm {
                         proposedRace = query.nextLine();
                     } while (!CharacterRace.allRaces().contains(proposedRace.toLowerCase()));
                 }
-
 
                 Utilities.slowPrint("You wish to be of the " + proposedRace.toLowerCase() + " race?");
                 Utilities.yesNoCaret();
