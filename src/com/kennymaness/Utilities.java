@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Utilities {
 
-    private static final List<String> singleCommands = List.of(
+    public static final List<String> singleCommands = List.of(
             "look",
             "inv",
             "stats",
@@ -18,7 +18,7 @@ public class Utilities {
             "quit"
     );
 
-    private static final List<String> actionCommands = List.of(
+    public static final List<String> actionCommands = List.of(
             "go",
             "look",
             "take",
@@ -132,66 +132,11 @@ public class Utilities {
 
     // This private method, called wordListerizer, receives user input and
     // turns it into an ArrayList of Strings.
-    private static List<String> wordListerizer(String input) {
+    // It's currently not in use, but I'm not deleting it because I might use it for something later. Maybe.
+    public static List<String> wordListerizer(String input) {
         String splitters = "[ \t,.:;?!\"']+";
         String[] words = input.split(splitters);
         return new ArrayList<>(Arrays.asList(words));
     }
-
-    // This method receives a user command input, uses wordListerizer to make it a List of Strings,
-    // then determines if it should be sent to the single-word command processor method
-    // or the action command processor method.
-    // If the user's input command cannot be sent to either method, it asks for input again.
-    public static void validateUserCommandInput(Player player, String userCommand, Boolean gameContinue) throws InterruptedException {
-
-        // use wordListerizer to turn the input into a parsable List of Strings,
-        // and put it in a new List called commandInput
-        List<String> commandInput = wordListerizer(userCommand.toLowerCase());
-
-        if (commandInput.size() == 1) {
-            if (singleCommands.contains(commandInput)) {
-                processSingleCommand(player, userCommand, gameContinue);
-            } else {
-            }
-        } else if (commandInput.size() == 2) {
-            if (actionCommands.contains(commandInput.get(0))){
-            }
-        } else {
-        }
-
-    }
-
-    private static void processSingleCommand(Player player, String command, Boolean gameContinue) throws InterruptedException {
-
-        String playerStats = "\n\n" +
-                "Name: " + player.getCharacterName() + "\n" +
-                "Race: " + player.getCharacterRace() + "\n" +
-                "Class: " + player.getCharacterClass() + "\n" +
-                "HP: " + player.getCurrentHitPoints() + "\n" +
-                "Equipped: a " + player.getWeaponPouch().get(0).getWeaponType() +
-                " named " + player.getEquippedWeapon() + "\n";
-
-        switch (command) {
-            case "look" -> slowPrint(player.getCurrentLocation().getDescription());
-            case "inv" -> slowPrint(player.getWeaponPouch().toString());
-            case "stats" -> slowPrint(playerStats);
-            case "wait" -> slowPrint(DisplayText.wait);
-            case "help" -> slowPrint(DisplayText.help);
-            case "quit" -> {
-                Boolean quitConfirm = Confirm.getYesOrNo("Quit game?");
-                if (quitConfirm) {
-                    Boolean areYouSure = Confirm.getYesOrNo("Are... are you sure...?");
-                    if (areYouSure) {gameContinue = false;}
-                    else {slowPrint("""
-                                    Oh thank goodness, I thought you were going to leave me.
-                                    Whew!
-                                    Okay!
-                                    Anyway,
-                                    """);}
-                } else {slowPrint(player.getCurrentLocation().getDescription());}
-            }
-        }
-    }
-
 
 }
