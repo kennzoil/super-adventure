@@ -19,6 +19,8 @@ import static com.kennymaness.character.CharacterClass.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        gameStart();
+
+        Game gameObject = new Game();
+        gameObject.gameStart();
     }
 }

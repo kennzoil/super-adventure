@@ -1,22 +1,17 @@
 package com.kennymaness;
 
 import com.kennymaness.character.Player;
-import com.kennymaness.map.Direction;
-import jdk.jshell.execution.Util;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Game {
 
     // declare variables
-    static Boolean playerAnswer;
-    static Boolean gameContinue = true;
+    Boolean playerAnswer;
+    Boolean gameContinue = true;
 
     // this is the game!!
-    public static void gameStart() throws InterruptedException {
+    public void gameStart() throws InterruptedException {
 
         /* -------------------------- WELCOME SCREEN / CREATE PLAYER CHARACTER ------------------------- */
 
@@ -43,22 +38,28 @@ public class Game {
 
         /* -------------------------------- PATH DIVERGES BASED ON RACE -------------------------------- */
 
-        // if the player is neither an elf nor a half-elf
+        // if the player is neither an elf nor a half-elf, do this
         if (!Objects.equals(playerRace, "Elf") &&
                 !Objects.equals(playerRace, "Half-Elf")) {
+
             // The town guard asks you a mysterious question, and you answer
             playerAnswer = Confirm.getYesOrNo(
                     "\"Tell me, " + playerName + "... Have you heard of the high elves?\"");
-            // depending on your answer, he will either heal you or try to bonk you
+
+            // if the player answers 'yes', do this
             if (playerAnswer) {
                 Utilities.slowPrint("\"Oh excellent! Me too!\"\n" +
                         "The guard seems so excited that he heals you with a magic spell. Wow!");
                 player.heal(2);
                 Utilities.slowPrint(
                         "Looks like this adventure is already shaping up to be pretty super!");
+
+            // if the player answers 'no', do this
             } else {
                 Utilities.slowPrint(
                         "\"What? Seriously?? That makes me mad!! I'm gonna hit you on the head!!!!\"");
+
+                // if the player's weapon is not equipped, do this
                 if (!player.isArmed) {
                     Utilities.slowPrint("He raises his halberd to bonk you on the head.\n" +
                             "You try to parry, but you have nothing to parry it with!\nRemember how you stowed your " +
@@ -66,19 +67,22 @@ public class Game {
                     Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                     player.damage(2);
                     Utilities.slowPrint("'Super' Adventure? More like STUPID adventure. That hurt!");
-                    Utilities.slowPrint("You have a bump on your head, and decide to go back home.\n" +
-                                        "That's enough adventure for one day.");
+                    Utilities.slowPrint("You have a little bump on your head.");
+
+                // if the player's weapon not equipped, do this
                 } else {
                     Utilities.slowPrint(
                             "He raises his halberd to bonk you on the head. " + "But you've still got your " +
                             player.getWeaponPouch().get(0).getWeaponType() + " equipped!\n");
                     playerAnswer = Confirm.getYesOrNo("Parry him?");
+                    // if the player parries him, do this
                     if (playerAnswer) {
                         Utilities.slowPrint("Shing!!!! Hyah!!\n" +
                                 "Brandishing your trusty " + player.getWeaponPouch().get(0).getWeaponType() + " " +
                                 player.getEquippedWeapon() + ", you parry the halberd with ease, " +
                                 "and even hit the guard with one of those Marvel quips.\n" +
                                 "Nice job!");
+                    // else if the player doesn't parry him, do this
                     } else {
                         Utilities.slowPrint("He bonks you on the head with the handle of his halberd. Ouch!");
                         player.damage(2);
@@ -87,7 +91,10 @@ public class Game {
                     }
                 }
             }
-        } else {
+        }
+
+        // if the player is an elf nor a half-elf, do this
+         else {
             Utilities.slowPrint(DisplayText.ifPlayerIsAnElfOrHalfElf);
         }
 
@@ -100,6 +107,8 @@ public class Game {
                     switch (playerCommand) {
                         case "look" -> Utilities.slowPrint(player.getCurrentLocation().getDescription());
                         case "inv" -> Utilities.slowPrint(player.getWeaponPouch().toString());
+
+                        // TODO - make the hp up to date!!
                         case "stats" -> Utilities.slowPrint(playerStats);
                         case "wait" -> Utilities.slowPrint(DisplayText.wait);
                         case "help" -> Utilities.slowPrint(DisplayText.help);

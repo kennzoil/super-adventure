@@ -33,7 +33,7 @@ public class Character {
                      Boolean isArmed,
                      Location currentLocation) {
 
-        this.currentHitPoints = currentHitPoints;
+        this.currentHitPoints = MAX_HIT_POINTS;
         this.weaponPouch = weaponPouch;
         this.itemPouch = itemPouch;
         this.abilityScores = abilityScores;

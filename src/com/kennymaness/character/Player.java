@@ -118,9 +118,6 @@ public class Player extends Character {
 
     public static Player createPlayer() throws InterruptedException {
 
-        // assign starting hitpoints
-        Utilities.slowPrint(DisplayText.startingHitPointsPrompt);
-
         // player selects race
         CharacterRace newPlayerRace = CharacterRace.valueOf(Confirm.confirmRace().toUpperCase());
 
@@ -151,6 +148,7 @@ public class Player extends Character {
         newPlayer.addWeapon(startingWeapon);
 
         Utilities.slowPrint(DisplayText.linebreak);
+        Utilities.slowPrint(DisplayText.startingHitPointsPrompt);
         Utilities.slowPrint("You've made your way to the town gate, and you see a guard.");
 
         // if the starting weapon has a nickname, print this
